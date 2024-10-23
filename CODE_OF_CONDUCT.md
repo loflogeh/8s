@@ -1,4 +1,4 @@
-# EightSleep API Documentation
+# Eight Sleep API Documentation
 
 This documentation describes the functions available for interacting with the EightSleep API. These functions are written in TypeScript and use `fetchWithAuth` for API requests, which automatically handles authentication tokens. The base URLs for API requests are as follows:
 
