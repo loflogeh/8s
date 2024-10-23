@@ -36,7 +36,7 @@ Refreshes the access token using the provided refresh token.
 ### `getUserProfile(token: Token): Promise<UserProfile>`
 Fetches the user profile information.
 
-- **URL**: `${CLIENT_API_URL}/users/me`
+- **URL**: `https://client-api.8slp.net/v1/users/me`
 - **Method**: `GET`
 - **Headers**: Authorization Bearer token.
 
@@ -45,7 +45,7 @@ Fetches the user profile information.
 ### `getTrendData(token: Token, userId: string, startDate: string, endDate: string, timezone: string): Promise<TrendData[]>`
 Fetches the trend data for a given user between specific dates.
 
-- **URL**: `${CLIENT_API_URL}/users/${userId}/trends`
+- **URL**: `https://client-api.8slp.net/v1/users/${userId}/trends`
 - **Method**: `GET`
 - **Params**:
   - `tz`: User's timezone.
@@ -60,7 +60,7 @@ Fetches the trend data for a given user between specific dates.
 ### `getIntervalsData(token: Token, userId: string): Promise<IntervalData[]>`
 Fetches the interval data for a user.
 
-- **URL**: `${CLIENT_API_URL}/users/${userId}/intervals`
+- **URL**: `https://client-api.8slp.net/v1/users/${userId}/intervals`
 - **Method**: `GET`
 
 ## Routines
@@ -68,13 +68,13 @@ Fetches the interval data for a user.
 ### `getRoutinesData(token: Token, userId: string): Promise<RoutineData>`
 Fetches routine data (like next alarm) for a user.
 
-- **URL**: `${APP_API_URL}v2/users/${userId}/routines`
+- **URL**: `https://app-api.8slp.net/v2/users/${userId}/routines`
 - **Method**: `GET`
 
 ### `alarmSnooze(token: Token, userId: string, alarmId: string, snoozeMinutes: number): Promise<void>`
 Snoozes a user's alarm for the specified number of minutes.
 
-- **URL**: `${APP_API_URL}v1/users/${userId}/routines`
+- **URL**: `https://app-api.8slp.net/v1/users/${userId}/routines`
 - **Method**: `PUT`
 - **Body**:
   - `alarm`: { `alarmId`, `snoozeForMinutes` }.
@@ -82,7 +82,7 @@ Snoozes a user's alarm for the specified number of minutes.
 ### `alarmStop(token: Token, userId: string, alarmId: string): Promise<void>`
 Stops a user's alarm.
 
-- **URL**: `${APP_API_URL}v1/users/${userId}/routines`
+- **URL**: `https://app-api.8slp.net/v1/users/${userId}/routines`
 - **Method**: `PUT`
 - **Body**:
   - `alarm`: { `alarmId`, `stopped: true` }.
@@ -90,7 +90,7 @@ Stops a user's alarm.
 ### `alarmDismiss(token: Token, userId: string, alarmId: string): Promise<void>`
 Dismisses a user's alarm.
 
-- **URL**: `${APP_API_URL}v1/users/${userId}/routines`
+- **URL**: `https://app-api.8slp.net/v1/users/${userId}/routines`
 - **Method**: `PUT`
 - **Body**:
   - `alarm`: { `alarmId`, `dismissed: true` }.
@@ -108,13 +108,13 @@ Fetches the current heating status for the user based on their profile and devic
 ### `getBedStateType(token: Token, userId: string): Promise<BedStateType>`
 Fetches the current bed state type for a user.
 
-- **URL**: `${APP_API_URL}v1/users/${userId}/temperature`
+- **URL**: `https://app-api.8slp.net/v1/users/${userId}/temperature`
 - **Method**: `GET`
 
 ### `setBedSide(token: Token, userId: string, deviceId: string, side: Side): Promise<void>`
 Sets the user's bed side.
 
-- **URL**: `${CLIENT_API_URL}/users/${userId}/current-device`
+- **URL**: `https://client-api.8slp.net/v1/users/${userId}/current-device`
 - **Method**: `PUT`
 - **Body**:
   - `id`: Device ID.
@@ -125,7 +125,7 @@ Sets the user's bed side.
 ### `setAwayMode(token: Token, userId: string, action: AwayModeAction): Promise<void>`
 Sets away mode for a user.
 
-- **URL**: `${APP_API_URL}v1/users/${userId}/away-mode`
+- **URL**: `https://app-api.8slp.net/v1/users/${userId}/away-mode`
 - **Method**: `PUT`
 - **Body**:
   - `awayPeriod`: { `action`: timestamp }.
@@ -135,19 +135,7 @@ Sets away mode for a user.
 ### `primePod(token: Token, deviceId: string, userId: string): Promise<void>`
 Primes a user's pod (device).
 
-- **URL**: `${APP_API_URL}v1/devices/${deviceId}/priming/tasks`
+- **URL**: `https://app-api.8slp.net/v1/devices/${deviceId}/priming/tasks`
 - **Method**: `POST`
 - **Body**:
   - `notifications`: { `users`: [userId], `meta`: "rePriming" }.
-
-## Temperature Conversion
-
-### `convertRawBedTempToDegrees(rawValue: number, degreeUnit: DegreeUnit): number`
-Converts a raw bed temperature value to Celsius or Fahrenheit.
-
-- **Maps**: `RAW_TO_CELSIUS_MAP` and `RAW_TO_FAHRENHEIT_MAP`.
-
-## Date Conversion
-
-### `convertStringToDateTime(dateTimeStr: string, timezone: string): Date`
-Converts a string-based date-time to a JavaScript `Date` object, using the provided timezone.
